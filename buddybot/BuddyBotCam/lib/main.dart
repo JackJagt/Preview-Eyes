@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 List<CameraDescription> cameras = [];
 double x = 0;
@@ -15,6 +16,8 @@ String yWord = "";
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Permission.camera.request();
+  await Permission.microphone.request();
 
   cameras = await availableCameras();
   runApp(const MyApp());

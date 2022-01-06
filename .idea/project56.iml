@@ -16,6 +16,15 @@
       <excludeFolder url="file://$MODULE_DIR$/example/build" />
       <excludeFolder url="file://$MODULE_DIR$/example/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/buddybot/BuddyBotCam/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/buddybot/BuddyBotCam/build" />
+      <excludeFolder url="file://$MODULE_DIR$/buddybot/BuddyBotCam/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/archive/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/archive/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/archive/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/archive/project_buddybot/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/archive/project_buddybot/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/archive/project_buddybot/build" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 31 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
