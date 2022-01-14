@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'ML/ML.dart';
+import 'ML/ml.dart';
 import 'package:camera/camera.dart';
 import 'VisionDetectorViews/detector_views.dart';
 import 'package:flutter/material.dart';
