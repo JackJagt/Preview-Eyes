@@ -43,7 +43,6 @@ class _MLState extends State<ML> {
                         pose2 = (resp['Niks'] * 100.0).round();
 
                         if (pose1 > pose2) {
-
                           pose3 = pose1;
                           label = "Yes";
                         }

@@ -70,7 +70,6 @@ class Home extends StatelessWidget {
                         CustomCard(
                           'Buddy Bot',
                           FaceDetectorView(),
-                         // ML(),
                           featureCompleted: true,
                         ),
                         CustomCard(
@@ -96,7 +95,7 @@ class CustomCard extends StatelessWidget {
   final Widget _viewPage;
   final bool featureCompleted;
 
-  const CustomCard(this._label, this._viewPage, //ML ml,
+  const CustomCard(this._label, this._viewPage,
       {this.featureCompleted = false});
 
   @override

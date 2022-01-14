@@ -9,7 +9,6 @@ class FaceDetectorView extends StatefulWidget {
   @override
   _FaceDetectorViewState createState() => _FaceDetectorViewState();
 }
-
 // 
 class _FaceDetectorViewState extends State<FaceDetectorView> {
   // No extra features are turned on
@@ -37,7 +36,6 @@ class _FaceDetectorViewState extends State<FaceDetectorView> {
         processImage(inputImage);
       },
       initialDirection: CameraLensDirection.front,
-
     );
   }
 
@@ -46,7 +44,6 @@ class _FaceDetectorViewState extends State<FaceDetectorView> {
     isBusy = true;
     final faces = await faceDetector.processImage(inputImage);
     print('Found ${faces.length} faces');
-
     if (faces.length == 0) {
       x = 0;
       y = 0;
@@ -61,18 +58,15 @@ class _FaceDetectorViewState extends State<FaceDetectorView> {
           inputImage.inputImageData!.size,
           inputImage.inputImageData!.imageRotation);
 
-      customPaint = CustomPaint(painter: painter,
-          size: Size(250, 250),
-      );
-
+      customPaint = CustomPaint(painter: painter);
 
       //  print the approximate center of the face iff a face has been detected
       if (faces.isNotEmpty) {
         x = faces.first.boundingBox.center.dx;
         y = faces.first.boundingBox.center.dy;
-        if (x > 100)
+        if (x < 100)
           xWord = "Links";
-        else if (x < 100 && x > 200)
+        else if (x > 100 && x < 200)
           xWord = "Midden";
         else
           xWord = "Rechts";
