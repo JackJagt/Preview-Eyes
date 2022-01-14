@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:buddy_bot_cam/ML/ML.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -202,6 +203,8 @@ class _CameraViewState extends State<CameraView> {
                       OutlinedButton(
                         onPressed: () {
                           debugPrint('Received click: Start Event');
+
+
                         },
                         child: const Text('Start Event'),
                       ),
