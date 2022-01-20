@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:buddy_bot_cam/VisionDetectorViews/face_detector_view.dart';
 import 'package:flutter/material.dart';
 //import 'package:permission_handler/permission_handler.dart';
 import 'package:teachable/teachable.dart';
@@ -28,6 +29,7 @@ class _MLState extends State<ML> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: Text("Jouw antwoord")),
+
         body: Stack(
           children: [
             Container(
@@ -46,6 +48,11 @@ class _MLState extends State<ML> {
                         if (pose1 > pose2) {
                           pose3 = pose1;
                           label = "Yes";
+                          //Navigator.pop(context);
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (context) => FaceDetectorView()),
+                          );
                         }
                         else{
                           pose3 = pose2;
@@ -77,6 +84,13 @@ class _MLState extends State<ML> {
                             style: TextStyle(
                               color: Colors.white,
                             ),
+                          ),
+                          OutlinedButton(
+                            onPressed: () {
+
+                              Navigator.pop(context);
+                            },
+                            child: const Text('Start Event'),
                           ),
                          //ext(
                            //ose3.toString(),

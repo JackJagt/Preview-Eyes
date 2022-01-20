@@ -1,11 +1,13 @@
 import 'dart:io';
 
+import 'package:buddy_bot_cam/ML/ML.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:image_picker/image_picker.dart';
+import 'face_detector_view.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/painting.dart';
@@ -28,6 +30,7 @@ class CameraView extends StatefulWidget {
   final CustomPaint? customPaint;
   final Function(InputImage inputImage) onImage;
   final CameraLensDirection initialDirection;
+  FaceDetector faceDetector = GoogleMlKit.vision.faceDetector();
 
   @override
   _CameraViewState createState() => _CameraViewState();
@@ -47,6 +50,8 @@ class _CameraViewState extends State<CameraView> {
   late RiveAnimationController _controller1;
 
   String lastPlayedAnimation = "nothing";
+
+
 
 
   @override
@@ -131,6 +136,7 @@ class _CameraViewState extends State<CameraView> {
     Widget body;
     if (_mode == ScreenMode.liveFeed)
       body = _liveFeedBody();
+
     else
       body = _galleryBody();
     return body;
@@ -146,8 +152,8 @@ class _CameraViewState extends State<CameraView> {
           child: Column(
             children: [
               Container(
-                  width: 0,
-                  height: 0,
+                  width: 100,
+                  height: 100,
                   child: Row(
                     children: <Widget>[
                       CameraPreview(_controller!),
@@ -201,6 +207,11 @@ class _CameraViewState extends State<CameraView> {
                       ),
                       OutlinedButton(
                         onPressed: () {
+
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (context) => ML()),
+                          );
                           debugPrint('Received click: Start Event');
                         },
                         child: const Text('Start Event'),
