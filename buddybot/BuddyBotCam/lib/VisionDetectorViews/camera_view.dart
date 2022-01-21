@@ -146,14 +146,21 @@ class _CameraViewState extends State<CameraView> {
     if (_controller?.value.isInitialized == false) {
       return Container();
     }
+    //double width;
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+    //var padding = MediaQuery.of(context).viewPadding;
+    //double height1 = height - padding.top - padding.bottom;
+    //double height3 = height - padding.top - kToolbarHeight;
+
     return Container(
       // color: Colors.black,
         child: Center(
           child: Column(
             children: [
               Container(
-                  width: 100,
-                  height: 100,
+                  width: 200,
+                  height: 200,
                   child: Row(
                     children: <Widget>[
                       CameraPreview(_controller!),
@@ -180,9 +187,11 @@ class _CameraViewState extends State<CameraView> {
                     ],
                   )
               ),
+
               Container(
-                width: 854,
-                height: 432,
+
+                width: width,
+                height: height - 300.0,
                 child: faceFollower(),
               ),
               Container(

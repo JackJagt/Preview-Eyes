@@ -58,7 +58,7 @@ class _FaceDetectorViewState extends State<FaceDetectorView> {
           inputImage.inputImageData!.size,
           inputImage.inputImageData!.imageRotation);
 
-      customPaint = CustomPaint(painter: painter);
+      customPaint = CustomPaint(painter: painter, size: Size (300, 400),);////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
       //  print the approximate center of the face iff a face has been detected
       if (faces.isNotEmpty) {
@@ -71,9 +71,9 @@ class _FaceDetectorViewState extends State<FaceDetectorView> {
         else
           xWord = "Rechts";
 
-        if (y > 40)
+        if (y < 40)
           yWord = "Boven";
-        else if (y < 40 && y > 60)
+        else if (y > 40 && y < 60)
           yWord = "Midden";
         else
           yWord = "Onder";
