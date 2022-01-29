@@ -11,7 +11,6 @@ class CameraLiveScreen extends StatefulWidget {
   
   final List<CameraDescription> cameras;
   final Callback setRecognitions;
-  // final String model;
 
   CameraLiveScreen(this.cameras,this.setRecognitions);
 
@@ -28,13 +27,13 @@ class _CameraLiveScreenState extends State<CameraLiveScreen> {
     @override
   void initState() {
     super.initState();
-
+    // error message if a camera can be used
     if (widget.cameras == null || widget.cameras.length < 1) {
       print('No camera is found');
     } else {
       controller = new CameraController(
         widget.cameras[1], // 0 back 1 front
-        ResolutionPreset.low,
+        ResolutionPreset.low, // quality camera
       );
       controller.initialize().then((_) {
         if (!mounted) {
@@ -42,20 +41,23 @@ class _CameraLiveScreenState extends State<CameraLiveScreen> {
         }
         setState(() {});
 
+        // start camera
         controller.startImageStream((CameraImage img) {
           if (!isDetecting) {
             isDetecting = true;
 
             int startTime = new DateTime.now().millisecondsSinceEpoch;
 
+              //settings for running the TfLite model
               Tflite.runModelOnFrame(
                 bytesList: img.planes.map((plane) {
                   return plane.bytes;
                 }).toList(),
                 imageHeight: img.height,
                 imageWidth: img.width,
-                numResults: 1, // aantal weergave in live feed ( dus beide of alleen de hoogste)
+                numResults: 1, // number of views in live feed (so both or only the highest)
               ).then((recognitions) {
+                //how long is the break
                 int endTime = new DateTime.now().millisecondsSinceEpoch;
                 print("Detection took ${endTime - startTime}");
 
@@ -75,13 +77,13 @@ class _CameraLiveScreenState extends State<CameraLiveScreen> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     if (controller == null || !controller.value.isInitialized) {
       return Container();
     }
 
+    // large of the display of the camera preview
     var tmp = MediaQuery.of(context).size;
     var screenH = math.max(tmp.height, tmp.width);
     var screenW = math.min(tmp.height, tmp.width);
