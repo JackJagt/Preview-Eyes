@@ -1,5 +1,3 @@
-// import 'dart:html';
-
 import 'dart:io';
 import 'dart:math' as math;
 
@@ -19,11 +17,11 @@ Future<Null> main() async
   try {
     cameras = await availableCameras();
   } on CameraException catch (e) {
-    print('Error: $e.code\nError Message: $e.message');
+    print('Error: $e.code\nError Message: $e.message'); //error message
   }
   runApp(
     MaterialApp(
-      title: 'Teachable Machine with Flutter',
+      title: 'ML with tflite model',
       home: FlutterTeachable(cameras),
     ),
   );
@@ -31,13 +29,13 @@ Future<Null> main() async
 
 class FlutterTeachable extends StatefulWidget {
   final List<CameraDescription> cameras;
-  FlutterTeachable(this.cameras);
+  FlutterTeachable(this.cameras); // use camera
   @override
   _FlutterTeachableState createState() => _FlutterTeachableState();
 }
 
 class _FlutterTeachableState extends State<FlutterTeachable> {
-
+  // for the photo analysis standard settings
   bool liveFeed = false;
 
   List<dynamic> _recognitions;
@@ -73,17 +71,19 @@ class _FlutterTeachableState extends State<FlutterTeachable> {
 
   loadMyModel() async
   {
+    //leave the ML tflite file and the lables from the correct folder
     var res = await Tflite.loadModel(
       labels: "assets/labels.txt",
       model: "assets/model_unquant.tflite"
     );
 
-    print("Result after Loading the Model is : $res");
+    print("Result is : $res");
 
   }
 
   chooseImage() async
   {
+    // take the picture
     File _img = await ImagePicker.pickImage(source: ImageSource.camera);
 
     if(_img == null) return;
@@ -97,7 +97,9 @@ class _FlutterTeachableState extends State<FlutterTeachable> {
 
   applyModelonImage(File file) async
   {
+    // load the model and check which how much confidence each label has
     var _res = await Tflite.runModelOnImage(
+      // load the model
       path: file.path,
       numResults: 2,
       threshold: 0.5,
@@ -105,6 +107,7 @@ class _FlutterTeachableState extends State<FlutterTeachable> {
       imageStd: 127.5
     );
 
+    //check the model on the image
     setState(() {
       _load = false;
       _result = _res;
@@ -114,6 +117,7 @@ class _FlutterTeachableState extends State<FlutterTeachable> {
       _fingers = str.substring(2);
       _confidence = _result != null ? (_result[0]["confidence"]*100.0).toString().substring(0,2) + "%" : "";
 
+      // print the labels with the percentage
       print(str.substring(2));
       print((_result[0]["confidence"]*100.0).toString().substring(0,2)+"%");
       print("indexed : ${_result[0]["label"]}");
@@ -128,12 +132,13 @@ class _FlutterTeachableState extends State<FlutterTeachable> {
     });
   }  
 
+  // in display settings
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Teachable Machine with FLUTTER"),
+        title: Text("ML with tflite model"),
       ),
       body: !liveFeed ? Center(
         child: ListView(
@@ -150,7 +155,7 @@ class _FlutterTeachableState extends State<FlutterTeachable> {
                       child: _pic != null ? Image.file(_pic,width: size.width*0.6,) : Container(),
                     ),
                     _result == null ? Container()
-                          : Text("$_fingers\nConfidence: $_confidence"),
+                          : Text("$_fingers\nConfidence: $_confidence"), //print the surest answer
                   ],
                 ),
               )
@@ -178,19 +183,19 @@ class _FlutterTeachableState extends State<FlutterTeachable> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             RaisedButton(
-              child: Text("Image Feed"),
+              child: Text("Image"), // test with image
               onPressed: (){
                 setState(() {
-                  liveFeed = false;
+                  liveFeed = false; // livefeed off
                 });
                 chooseImage();
               },
             ),
             RaisedButton(
-              child: Text("Live Feed"),
+              child: Text("Live"), // test in live 
               onPressed: () {
                 setState(() {
-                  liveFeed = true;
+                  liveFeed = true; // livefeed on
                 });
                 loadMyModel();
               },
