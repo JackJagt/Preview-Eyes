@@ -1,8 +1,7 @@
-# project56
 Project Buddy Bot
 
-Gekozen voor optie 2
+Chosen for option 2
 
-OPTIE 1 : ML met behulp van de teachble machine en foto's. Hierin staat een tflite model,
+OPTION 1 : ML using the teachble machine and pictures. This contains a tflite model,
 
-OPTIE 2: Pose detection met behulp van teachble machine. 
+OPTION 2: Pose detection using teachble machine.
