@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:image_picker/image_picker.dart';
 import 'face_detector_view.dart';
+import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/painting.dart';
@@ -215,12 +216,14 @@ class _CameraViewState extends State<CameraView> {
                         child: Text(lastPlayedAnimation, style: TextStyle(fontSize: 15.0, color: Colors.black)),
                       ),
                       OutlinedButton(
-                        onPressed: () {
+                        onPressed: () async {
 
                           Navigator.pushReplacement(
+
                             context,
                             MaterialPageRoute(builder: (context) => ML()),
                           );
+
                           debugPrint('Received click: Start Event');
                         },
                         child: const Text('Start Event'),
@@ -342,45 +345,64 @@ class _CameraViewState extends State<CameraView> {
       print(xWord);
       print(yWord);
 
-      if(xWord == "Links"){
-        if(yWord == "Boven" && lastPlayedAnimation != "Top-left"){
+      if(xWord == "Links") {
+        if (yWord == "Boven" && lastPlayedAnimation != "Top-left") {
+          Timer(Duration(seconds: 1),(){
           _riveArtboard!.artboard..addController(SimpleAnimation('Top-left'));
+          });
           lastPlayedAnimation = "Top-left";
         }
-        if(yWord == "Midden" && lastPlayedAnimation != "Mid-left"){
+        if (yWord == "Midden" && lastPlayedAnimation != "Mid-left") {
+          Timer(Duration(seconds: 1),(){
           _riveArtboard!.artboard..addController(SimpleAnimation('Mid-left'));
+          });
           lastPlayedAnimation = "Mid-left";
         }
-        if(yWord == "Onder" && lastPlayedAnimation != "Bottom-left"){
-          _riveArtboard!.artboard..addController(SimpleAnimation('Bottom-left'));
-          lastPlayedAnimation = "Bottom-left";
+        if (yWord == "Onder" && lastPlayedAnimation != "Bottom-left") {
+          Timer(Duration(seconds: 1),(){//});
+            _riveArtboard!.artboard
+              ..addController(SimpleAnimation('Bottom-left'));
+          });
+            lastPlayedAnimation = "Bottom-left";
         }
       }
-      if(xWord == "Midden" && lastPlayedAnimation != "Top-mid"){
-        if(yWord == "Boven"){
+      if(xWord == "Midden" ){
+        if(yWord == "Boven" && lastPlayedAnimation != "Top-mid"){
+          Timer(Duration(seconds: 1),(){
           _riveArtboard!.artboard..addController(SimpleAnimation('Top-mid'));
+        });
           lastPlayedAnimation = "Top-mid";
         }
         if(yWord == "Midden" && lastPlayedAnimation != "Mid-mid"){
+          Timer(Duration(seconds: 1),(){
           _riveArtboard!.artboard..addController(SimpleAnimation('Mid-mid'));
+          });
           lastPlayedAnimation = "Mid-Mid";
         }
         if(yWord == "Onder" && lastPlayedAnimation != "Bottom-mid"){
+          Timer(Duration(seconds: 1),(){
           _riveArtboard!.artboard..addController(SimpleAnimation('Bottom-mid'));
+        });
           lastPlayedAnimation = "Bottom-mid";
         }
       }
-      if(xWord == "Rechts" && lastPlayedAnimation != "Top-right"){
-        if(yWord == "Boven"){
+      if(xWord == "Rechts"){
+        if(yWord == "Boven" && lastPlayedAnimation != "Top-right"){
+          Timer(Duration(seconds: 1),(){
           _riveArtboard!.artboard..addController(SimpleAnimation('Top-right'));
+          });
           lastPlayedAnimation = "Top-right";
         }
         if(yWord == "Midden" && lastPlayedAnimation != "Mid-right"){
+          Timer(Duration(seconds: 1),(){
           _riveArtboard!.artboard..addController(SimpleAnimation('Mid-right'));
+          });
           lastPlayedAnimation = "Mid-right";
         }
         if(yWord == "Onder" && lastPlayedAnimation != "Bottom-right"){
+          Timer(Duration(seconds: 1),(){
           _riveArtboard!.artboard..addController(SimpleAnimation('Bottom-right'));
+          });
           lastPlayedAnimation = "Bottom-right";
         }
       }

@@ -64,18 +64,18 @@ class _FaceDetectorViewState extends State<FaceDetectorView> {
       if (faces.isNotEmpty) {
         x = faces.first.boundingBox.center.dx;
         y = faces.first.boundingBox.center.dy;
-        if (x > 100)
+        if (x > 200)
           xWord = "Links";
-        else if (x < 100 && x > 200)
+        else if (x > 120 && x < 180)
           xWord = "Midden";
-        else
+        else if (x < 100)
           xWord = "Rechts";
 
-        if (y < 40)
+        if (y < 70)
           yWord = "Boven";
-        else if (y > 40 && y < 60)
+        else if (y > 100 && y < 140)
           yWord = "Midden";
-        else
+        else if (y > 160)
           yWord = "Onder";
         print(faces.first.boundingBox.center);
       }

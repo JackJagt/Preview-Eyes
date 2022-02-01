@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:async';
 
 import 'package:buddy_bot_cam/VisionDetectorViews/face_detector_view.dart';
 import 'package:flutter/material.dart';
@@ -18,22 +19,27 @@ class _MLState extends State<ML> {
   int pose2 = 0; // percentage answer 2
   int pose3 = 0; // percentage of the most true answer
 
+
   String label = "Loading"; // waiting until ML loaded
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
         appBar: AppBar(title: Text("Your answer")),
         body: Stack(
           children: [
             Container(
                 child: Column(children: <Widget>[
+        //Image.asset('assets/medicijn.PNG'),
               Expanded(
                 child: Container(
                   child: Teachable(
                     path: "pose/index.html", // path  to model ml
                     results: (res) {
+
                       var resp = jsonDecode(res);
+
 
                       setState(() {
                         pose1 = (resp['Ja'] * 100.0).round(); //percentage answer 1
@@ -44,18 +50,32 @@ class _MLState extends State<ML> {
                           pose3 = pose1;
                           label = "Yes";
 
+                          Timer(Duration(seconds: 3),(){
                           //go back to FaceDetectorView if the answer is yes
                           //Navigator.pop(context);
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(builder: (context) => FaceDetectorView()),
                           );
-                        }
+
+                          });
+
+                          }
 
                         // if the answer is nothing or no
                         else{
                           pose3 = pose2;
                           label = "Nothing";
+                          Timer(Duration(seconds: 1000000000000),(){
+
+                            //go back to FaceDetectorView if the answer is yes
+                            //Navigator.pop(context);
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (context) => FaceDetectorView()),
+                            );
+
+                          });
                         }
                       });
                     },
@@ -92,6 +112,7 @@ class _MLState extends State<ML> {
                             },
                             child: const Text('Start Event'),
                           ),
+
                          //ext(
                            //ose3.toString(),
                             //yle: TextStyle(
@@ -106,5 +127,6 @@ class _MLState extends State<ML> {
           ],
         ));
   }
+
 
 }
