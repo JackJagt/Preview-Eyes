@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:async';
 
 import 'package:buddy_bot_cam/VisionDetectorViews/face_detector_view.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:teachable/teachable.dart';
  
@@ -30,8 +31,18 @@ class _MLState extends State<ML> {
         body: Stack(
           children: [
             Container(
-                child: Column(children: <Widget>[
-        //Image.asset('assets/medicijn.PNG'),
+                child: Row(children: <Widget>[
+        //Image.asset('assets/buddybot.png'),
+                 // if(label=='yes'){
+
+
+                    Image(
+                      image: AssetImage('assets/buddybot.png'),
+                      alignment: Alignment.center,
+                      height: 300,
+                      width: 300,
+                    ),
+                 // },
               Expanded(
                 child: Container(
                   child: Teachable(
@@ -39,6 +50,7 @@ class _MLState extends State<ML> {
                     results: (res) {
 
                       var resp = jsonDecode(res);
+
 
 
                       setState(() {
@@ -83,6 +95,7 @@ class _MLState extends State<ML> {
                 ),
               ),
             ])),
+
 
             // print the answer
             Align(
